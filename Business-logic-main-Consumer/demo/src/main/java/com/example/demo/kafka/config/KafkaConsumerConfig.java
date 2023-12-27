@@ -1,6 +1,6 @@
 package com.example.demo.kafka.config;
 
-import com.example.demo.Dto.Requests.PerformPaymentRequest;
+import com.example.demo.dto.requests.PerformPaymentRequest;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ public class KafkaConsumerConfig {
     @Value("${spring.kafka.bootstrap-servers}")
     private String boostrapServers;
 
-    public Map<String, Object> consumerConfig(){
+    public Map<String, Object> consumerConfig() {
         HashMap<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, boostrapServers);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -30,11 +30,11 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConsumerFactory<String, PerformPaymentRequest> consumerFactory(){
+    public ConsumerFactory<String, PerformPaymentRequest> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfig());
     }
 
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, PerformPaymentRequest>> factory(ConsumerFactory<String, PerformPaymentRequest> consumerFactory){
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, PerformPaymentRequest>> factory(ConsumerFactory<String, PerformPaymentRequest> consumerFactory) {
         ConcurrentKafkaListenerContainerFactory<String, PerformPaymentRequest> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
         return factory;

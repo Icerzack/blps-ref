@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ../../db/all.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    container_name: blps-db
